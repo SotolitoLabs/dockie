@@ -58,3 +58,7 @@ target/
 
 #dev database
 *.sqlite3
+
+#Edition
+*.swp
+

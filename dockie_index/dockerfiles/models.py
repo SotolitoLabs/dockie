@@ -5,3 +5,6 @@ class Dockerfile(models.Model):
     uri = models.CharField(max_length=200)
     created = models.DateTimeField('Creation Date')
     updated = models.DateTimeField('Updated Date')
+    
+    def __unicode__(self):
+        return self.name

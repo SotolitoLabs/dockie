@@ -1,14 +1,11 @@
 from django.conf.urls import patterns, include, url
-
-from django.contrib import admin
-
-admin.autodiscover()
+from dockerfiles import views
 
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'dockie_index.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^dockie/', include('dockerfiles.urls')),
+    url(r'^$', views.index),
 )
+

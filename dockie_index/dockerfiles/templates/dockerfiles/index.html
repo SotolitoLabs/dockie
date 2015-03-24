@@ -1,0 +1,9 @@
+{% if dockerfiles %}
+    <ul>
+    {% for file in dockerfiles %}
+        <li><a href="/dockie/{{ file.id }}/">{{ file.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Dockerfiles are available.</p>
+{% endif %}

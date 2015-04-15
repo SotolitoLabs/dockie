@@ -1,0 +1,16 @@
+{% if dockerfile %}
+
+<div class="info">
+
+<h3>{{ dockerfile.name }}</h3>
+<a href="{{ dockerfile.filename.url }}">{{ dockerfile.filename.name }} <br />
+
+    <ul>
+    {% for file in dockerfile.dockerfileresource_set.all %}
+        <li><a href="{{ file.resource.url }}/">{{ file.resource.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Dockerfile not available</p>
+</div>
+{% endif %}

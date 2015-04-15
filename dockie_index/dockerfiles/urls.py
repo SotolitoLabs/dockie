@@ -7,5 +7,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', views.index),
+    url(r'^(\d+)/$', views.showDockerFile),
+    url(r'^(\d+)$', views.showDockerFile),
 )
 

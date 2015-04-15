@@ -62,3 +62,6 @@ target/
 #Edition
 *.swp
 
+# dockie ignore
+resources/*
+

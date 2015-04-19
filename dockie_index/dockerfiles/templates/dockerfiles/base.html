@@ -2,23 +2,47 @@
 
 <html>
     <head>
-        <title>DockerFiles :: {% block title %}Main{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Dockie, manage dockerfiles">
+        <meta name="author" content="imcsk8@sotolitolabs.com">
+
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- FONT -->
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/skeleton/normalize.css">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/skeleton/skeleton.css">
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/style.css" />
+        <!-- Scripts -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ MEDIA_URL }}images/favicon.png">
+
+        <title>DockerFiles :: {% block title %}Main{% endblock %}</title>
     </head>
     <body>
         {% if error %}
-        <div class="error">
+        <div class="section error">
           {{ error }}
         </div>
         {% endif %}
-        <div id="menu">
-            <ul>
-                <li class="menuitem">home</li>
-                <li class="menuitem">new</li>
-                <li class="menuitem">edit</li>
-            </ul>
+        <div class="section menu">
+            <div class="container" id="menu">
+                <div class="row">  
+                    <ul>
+                        <li class="menuitem"><a class="button"  href="{% url 'home' %}">home</a></li>
+                        <li class="menuitem"><a class="button" href="{% url 'new' %}">new</a></li>
+                        {% if  dockerfile %}
+                        <li class="menuitem"><a class="button" href="{% url 'edit' dockerfile.id %}">edit</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        {% block body_block %}{% endblock %}
+        <div class="container">
+            {% block body_block %}{% endblock %}
+        </div>
 
     </body>
 </html>

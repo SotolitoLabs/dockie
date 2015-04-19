@@ -1,3 +1,7 @@
+{% extends 'dockerfiles/base.html' %}
+
+{% block title %}List{% endblock %}
+{% block body_block %}
 {% if dockerfiles %}
     <ul>
     {% for file in dockerfiles %}
@@ -7,3 +11,4 @@
 {% else %}
     <p>No Dockerfiles are available.</p>
 {% endif %}
+{% endblock %}

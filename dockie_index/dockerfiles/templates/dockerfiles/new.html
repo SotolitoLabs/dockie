@@ -1,0 +1,17 @@
+{% extends 'dockerfiles/base.html' %}
+
+{% block title %}New{% endblock %}
+
+{% block body_block %}
+
+
+    <div class="new">
+        <form method="post" action="{% url 'create'  %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Name:</label> <input type="text" name="name" size="15"><br />
+            <label>File:</label> <input type="file" name="filename"><br />
+            <br />
+            <input type="submit" value="create">
+        </form>
+    </div>
+{% endblock %}

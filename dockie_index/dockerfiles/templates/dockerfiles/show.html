@@ -1,16 +1,25 @@
+{% extends 'dockerfiles/base.html' %}
+
+{% block title %}New{% endblock %}
+
+{% block body_block %}
+
+
 {% if dockerfile %}
 
-<div class="info">
+    <div class="info">
 
-<h3>{{ dockerfile.name }}</h3>
-<a href="{{ dockerfile.filename.url }}">{{ dockerfile.filename.name }} <br />
+        <h3>{{ dockerfile.name }}</h3>
+        <a href="{{ dockerfile.filename.url }}">{{ dockerfile.filename.name }} <br />
 
-    <ul>
-    {% for file in dockerfile.dockerfileresource_set.all %}
-        <li><a href="{{ file.resource.url }}/">{{ file.resource.name }}</a></li>
-    {% endfor %}
-    </ul>
+        <ul>
+        {% for file in dockerfile.dockerfileresource_set.all %}
+            <li><a href="{{ file.resource.url }}/">{{ file.resource.name }}</a></li>
+        {% endfor %}
+        </ul>
 {% else %}
-    <p>Dockerfile not available</p>
-</div>
+        <p>Dockerfile not available</p>
 {% endif %}
+    </div>
+
+{% endblock %}

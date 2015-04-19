@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from dockerfiles.models import Dockerfile
 from dockerfiles.utils import save_file
 
+#TODO add language support
+
 def index(request):
     dockerfiles = Dockerfile.objects.all().order_by('updated')[:5]
     template = loader.get_template('dockerfiles/index.html')
@@ -34,9 +36,10 @@ def showDockerFile(request, id):
 
 @login_required()
 def newDockerFile(request):
-    template = loader.get_template('dockerfiles/new.html')
+    template = loader.get_template('dockerfiles/edit.html')
     context =  RequestContext(request, {
-        'content': "",
+        'title'  : "New",
+        'action' : reverse('create'),
     })
     return HttpResponse(template.render(context))
 
@@ -45,18 +48,62 @@ def newDockerFile(request):
 @login_required()
 def createDockerFile(request):
     try:
-        uploaded_file = request.FILES['filename']
-        save_file(uploaded_file)
-        docker_file = Dockerfile(name = request.POST['name'],
+        dockerfile = Dockerfile(name = request.POST['name'],
             created = timezone.now(), updated = timezone.now(),
-            filename = uploaded_file.name, user_id = request.user.id)
-        docker_file.save()
+            user_id = request.user.id)
+        if request.FILES.has_key('filename'):
+            uploaded_file = request.FILES['filename']
+            save_file(uploaded_file)
+            dockerfile.filename = uploaded_file.name
+        dockerfile.save()
     except Exception as e:
-        template = loader.get_template('dockerfiles/new.html')
+        template = loader.get_template('dockerfiles/edit.html')
         context =  RequestContext(request, {
+            'title'  : "Create",
+            'action' : reverse('create'),
+            'error'  : "Error: %s " % (str(e)),
+        })
+        return HttpResponse(template.render(context))
+
+    uri = reverse('show', args=[dockerfile.id])
+    return HttpResponseRedirect(uri)
+
+@login_required()
+def editDockerFile(request, id):
+    dockerfile = Dockerfile.objects.filter(id = id)
+    context =  RequestContext(request, {
+        'title'     : 'Edit',
+        'action'    : reverse('update', args=[dockerfile[0].id]),
+        'dockerfile': dockerfile[0],
+    })
+    template = loader.get_template('dockerfiles/edit.html')
+    return HttpResponse(template.render(context))
+
+@login_required()
+def updateDockerFile(request, id):
+    qs = Dockerfile.objects.filter(id = id)
+    dockerfile = qs[0]
+    try:
+        if request.POST['name']:
+            dockerfile.name = request.POST['name']
+
+        if request.FILES.has_key('filename'):
+            uploaded_file = request.FILES['filename']
+            save_file(uploaded_file)
+            dockefile.filename = uploaded_file.name
+
+        if request.POST['name'] or request.FILES['filename']:
+            dockerfile.updated = timezone.now()
+            dockerfile.save() 
+    except Exception as e:
+        template = loader.get_template('dockerfiles/edit.html')
+        context =  RequestContext(request, {
+            'title'      : "Edit",
+            'action'     : reverse('update', args=[dockerfile.id]),
+            'dockerfile' : dockerfile,
             'error': "Error: %s " % (str(e)),
         })
         return HttpResponse(template.render(context))
 
-    uri = reverse('show', args=[docker_file.id])
+    uri = reverse('show', args=[dockerfile.id])
     return HttpResponseRedirect(uri)

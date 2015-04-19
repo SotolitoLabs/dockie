@@ -1,0 +1,18 @@
+{% extends 'dockerfiles/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body_block %}
+
+
+    <div class="edit">
+        <form method="post" action="{{ action }}"" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Name:</label> <input type="text" name="name" size="15" value={{ dockerfile.name }}><br />
+            <a href="{{ dockerfile.url }}/">{{ dockerfile.name }}</a><br />
+            <label>File:</label> <input type="file" name="filename"><br />
+            <br />
+            <input type="submit" value="save">
+        </form>
+    </div>
+{% endblock %}

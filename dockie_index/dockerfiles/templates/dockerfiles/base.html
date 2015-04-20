@@ -30,13 +30,11 @@
         <div class="section menu">
             <div class="container" id="menu">
                 <div class="row">  
-                    <ul>
-                        <li class="menuitem"><a class="button"  href="{% url 'home' %}">home</a></li>
-                        <li class="menuitem"><a class="button" href="{% url 'new' %}">new</a></li>
-                        {% if  dockerfile %}
-                        <li class="menuitem"><a class="button" href="{% url 'edit' dockerfile.id %}">edit</a></li>
-                        {% endif %}
-                    </ul>
+                    <a class="button"  href="{% url 'home' %}">home</a>
+                    <a class="button" href="{% url 'new' %}">new</a>
+                    {% if  dockerfile %}
+                    <a class="button" href="{% url 'edit' dockerfile.id %}">edit</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

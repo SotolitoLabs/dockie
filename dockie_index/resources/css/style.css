@@ -2,3 +2,11 @@
     padding: 10px;
     color: #FF0000;
 }
+
+.top-block {
+    padding-top: 10px;
+}
+
+.menu-bar {
+    text-align: right;
+}

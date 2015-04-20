@@ -27,14 +27,19 @@
           {{ error }}
         </div>
         {% endif %}
-        <div class="section menu">
-            <div class="container" id="menu">
+        <div class="section top-block">
+            <div class="container">
                 <div class="row">  
-                    <a class="button"  href="{% url 'home' %}">home</a>
-                    <a class="button" href="{% url 'new' %}">new</a>
-                    {% if  dockerfile %}
-                    <a class="button" href="{% url 'edit' dockerfile.id %}">edit</a>
-                    {% endif %}
+                    <div class="one-third column">
+                       <img src="{{ MEDIA_URL }}images/logo_texto.png" alt="">
+                    </div>
+                    <div class="one-half column menu-bar">
+                        <a class="button"  href="{% url 'home' %}">home</a>
+                        <a class="button" href="{% url 'new' %}">new</a>
+                        {% if  dockerfile %}
+                        <a class="button" href="{% url 'edit' dockerfile.id %}">edit</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

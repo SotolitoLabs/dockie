@@ -7,6 +7,8 @@ from django.template import RequestContext, loader
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
+from docker import Client
+
 from dockerfiles.models import Dockerfile
 from dockerfiles.utils import save_file
 
@@ -34,6 +36,21 @@ def showDockerFile(request, id):
             ( json_dockerfile, json_dockerfile_resources ),
             content_type='application/json')
 
+def showRegistry(request):
+    type = request.META.get('HTTP_ACCEPT').split(',')[0]
+    docker = Client(base_url='unix://var/run/docker.sock')
+    images = docker.search('imcsk8')
+    for image in images:
+        print "---- IMAGE: %s " % image
+    context = {'images': images }
+    if type == "text/html":
+        return render(request, 'dockerfiles/images.html', context)
+    else:
+        json_images = serializers.serialize("json", images)
+        return HttpResponse('{ "images": %s , { "resources": %s } }' %
+            ( json_images ),
+            content_type='application/json')
+   
 @login_required()
 def newDockerFile(request):
     template = loader.get_template('dockerfiles/edit.html')

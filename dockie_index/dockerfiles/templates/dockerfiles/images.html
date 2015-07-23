@@ -1,0 +1,18 @@
+{% extends 'dockerfiles/base.html' %}
+
+{% block title %}List{% endblock %}
+{% block body_block %}
+{% if images %}
+    <ul>
+    {% for image in images %}
+        <li><a href="/dockie/{{ image.name }}/">{{ image.description }}</a></li>
+            <ul>
+                <li>name: {{ image.name }}</li>
+                <li>index:{{ image.index_name  }}
+            </ul>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Docker Images are available.</p>
+{% endif %}
+{% endblock %}

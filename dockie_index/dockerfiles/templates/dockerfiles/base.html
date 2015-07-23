@@ -35,6 +35,7 @@
                     </div>
                     <div class="one-half column menu-bar">
                         <a class="button"  href="{% url 'home' %}">home</a>
+                        <a class="button" href="{% url 'registry' %}">registry</a>
                         <a class="button" href="{% url 'new' %}">new</a>
                         {% if  dockerfile %}
                         <a class="button" href="{% url 'edit' dockerfile.id %}">edit</a>

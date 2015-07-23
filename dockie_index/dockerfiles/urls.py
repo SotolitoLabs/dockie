@@ -13,5 +13,6 @@ urlpatterns = patterns('',
     url(r'^create$', views.createDockerFile, name='create'),
     url(r'^edit/(\d+)$', views.editDockerFile, name='edit'),
     url(r'^update/(\d+)$', views.updateDockerFile, name='update'),
+    url(r'^registry$', views.showRegistry, name='registry'),
 )
 

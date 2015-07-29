@@ -36,6 +36,14 @@ def showDockerFile(request, id):
             ( json_dockerfile, json_dockerfile_resources ),
             content_type='application/json')
 
+def showDockerFiles(request):
+    dockerfiles = Dockerfile.objects.all().order_by('updated')[:5]
+    template = loader.get_template('dockerfiles/index.html')
+    context =  RequestContext(request, {
+        'dockerfiles': dockerfiles,
+    })
+    return HttpResponse(template.render(context))
+
 def showRegistry(request):
     type = request.META.get('HTTP_ACCEPT').split(',')[0]
     docker = Client(base_url='unix://var/run/docker.sock')
